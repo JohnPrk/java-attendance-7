@@ -1,14 +1,10 @@
 # java-attendance-precourse
 
-
 ## ⚙️ 구현 순서
 
-### 1단계 - csv 파일을 읽고 크루원의 출석기록 저장하기
-1. csv 파일을 Files.readAllLines()로 불러온다.
-2. 전체 리스트를 순회하며 구분자를 바탕으로 크루원의 이름과 출석 날짜 및 시간을 분리하고 크루원의 출석기록 저장한다.
+### 1단계 - 파일 입출력 및 크루원 출석 기록 저장
 
+- [x] 데이터를 저장할 핵심 도메인 객체(Crew, Attendance) 및 일급 컬렉션(Crews, Attendances) 정의
+- [x] `attendances.csv` 파일을 `Files.readAllLines()`로 읽어와 파싱
+- [x] 읽어온 데이터를 도메인 객체에 매핑하여 저장 (초기 데이터 적재)
 
-## 🛞 객체 요약
-
-
-## 📍 예외 메시지 
