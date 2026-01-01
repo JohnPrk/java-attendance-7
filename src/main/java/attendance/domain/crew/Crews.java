@@ -12,7 +12,7 @@ public class Crews {
         this.crews = new ArrayList<>();
     }
 
-    public Crew findCrew(String name) {
+    public Crew getExistedCrewOrMakeNewCrew(String name) {
         Optional<Crew> optionalCrew = crews.stream()
                 .filter(crew -> crew.findByName(name))
                 .findFirst();
@@ -22,5 +22,16 @@ public class Crews {
             return crew;
         }
         return optionalCrew.get();
+    }
+
+    public Crew getCrewByName(String name) {
+        return findByName(name);
+    }
+
+    private Crew findByName(String name) {
+        return crews.stream()
+                .filter(crew -> crew.findByName(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 등록되지 않은 닉네임입니다."));
     }
 }

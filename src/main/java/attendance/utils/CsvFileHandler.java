@@ -23,7 +23,7 @@ public class CsvFileHandler {
                 String name = split[0];
                 String date = split[1];
                 LocalDateTime dateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                Crew crew = crews.findCrew(name);
+                Crew crew = crews.getExistedCrewOrMakeNewCrew(name);
                 crew.registerAttendance(dateTime);
             }
         } catch (Exception e) {

@@ -1,5 +1,9 @@
 package attendance.controller;
 
+import attendance.domain.attendance.Attendance;
+import attendance.domain.attendance.DayOfTheWeek;
+import attendance.domain.attendance.Holiday;
+import attendance.domain.crew.Crew;
 import attendance.domain.crew.Crews;
 import attendance.domain.menu.Menu;
 import attendance.utils.Retry;
@@ -7,6 +11,7 @@ import attendance.view.InputView;
 import attendance.view.OutputView;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class AttendanceController {
 
@@ -20,12 +25,16 @@ public class AttendanceController {
 
     public void run() {
         while (true) {
-            OutputView.printWelcomeMessage(dateTime);
-            Menu menu = getMenu();
-            if (isQuit(menu)) {
-                break;
+            try {
+                OutputView.printWelcomeMessage(dateTime);
+                Menu menu = getMenu();
+                if (isQuit(menu)) {
+                    break;
+                }
+                processMenu(menu);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-            processMenu(menu);
         }
     }
 
@@ -53,8 +62,11 @@ public class AttendanceController {
     }
 
     private void registerAttendance() {
+        DayOfTheWeek.validWeekend(dateTime);
+        Holiday.validHoliday(dateTime);
         System.out.println("<출석 등록>");
-
+        Attendance attendance = registerAndGetAttendance();
+        OutputView.printRegisterAttendance(attendance);
     }
 
     private boolean isQuit(Menu menu) {
@@ -63,6 +75,15 @@ public class AttendanceController {
             return true;
         }
         return false;
+    }
+
+    private Attendance registerAndGetAttendance() {
+        return Retry.repeatUntilSuccess(() -> {
+            String crewName = InputView.inputName(crews::getCrewByName);
+            Crew crew = crews.getCrewByName(crewName);
+            LocalTime localTime = InputView.inputTime();
+            return crew.registerAttendance(LocalDateTime.of(dateTime.toLocalDate(), localTime));
+        });
     }
 
     private Menu getMenu() {

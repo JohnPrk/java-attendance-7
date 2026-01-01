@@ -12,8 +12,9 @@ public class Attendances {
         this.attendances = new ArrayList<>();
     }
 
-    public void addAttendance(LocalDateTime dateTime) {
+    public Attendance addAttendance(LocalDateTime dateTime) {
         Attendance attendance = new Attendance(dateTime);
         attendances.add(attendance);
+        return attendance;
     }
 }

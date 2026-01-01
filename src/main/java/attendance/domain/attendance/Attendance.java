@@ -8,10 +8,12 @@ public class Attendance {
 
     private LocalDate date;
     private LocalTime time;
+    private DailyAttendanceStatus dailyAttendanceStatus;
 
     public Attendance(LocalDateTime dateTime) {
         this.date = dateTime.toLocalDate();
         this.time = dateTime.toLocalTime();
+        this.dailyAttendanceStatus = DailyAttendanceStatus.of(date, time);
     }
 
     public LocalDate getDate() {
@@ -20,5 +22,9 @@ public class Attendance {
 
     public LocalTime getTime() {
         return time;
+    }
+
+    public String getDailyAttendanceStatus() {
+        return dailyAttendanceStatus.getName();
     }
 }
