@@ -3,7 +3,9 @@ package attendance.domain.crew;
 import attendance.domain.attendance.Attendance;
 import attendance.domain.attendance.Attendances;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Crew {
 
@@ -21,5 +23,13 @@ public class Crew {
 
     public boolean findByName(String name) {
         return name.equals(this.name);
+    }
+
+    public Attendance getAttendanceByDate(LocalDate date) {
+        return attendances.getAttendanceByDate(date);
+    }
+
+    public void updateAttendance(LocalDate date, LocalTime time) {
+        attendances.updateAttendance(date, time);
     }
 }

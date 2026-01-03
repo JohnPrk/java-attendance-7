@@ -10,6 +10,7 @@ import attendance.utils.Retry;
 import attendance.view.InputView;
 import attendance.view.OutputView;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -58,7 +59,16 @@ public class AttendanceController {
 
     private void updateAttendance() {
         System.out.println("<출석 수정>");
-
+        Crew crew = inputCrewNameAndGetCrew();
+        LocalDate updateDate = InputView.inputDate(dateTime, crew::getAttendanceByDate);
+        Attendance previousAttendance = crew.getAttendanceByDate(updateDate);
+        LocalDate previousAttendanceDate = previousAttendance.getDate();
+        LocalTime previousAttendanceTime = previousAttendance.getTime();
+        String previousAttendanceStatus = previousAttendance.getDailyAttendanceStatus();
+        LocalTime updateTime = InputView.inputTime();
+        crew.updateAttendance(updateDate, updateTime);
+        Attendance updatedAttendance = crew.getAttendanceByDate(updateDate);
+        OutputView.printUpdateAttendanceMessage(previousAttendanceDate, previousAttendanceTime, previousAttendanceStatus, updatedAttendance);
     }
 
     private void registerAttendance() {
@@ -79,11 +89,15 @@ public class AttendanceController {
 
     private Attendance registerAndGetAttendance() {
         return Retry.repeatUntilSuccess(() -> {
-            String crewName = InputView.inputName(crews::getCrewByName);
-            Crew crew = crews.getCrewByName(crewName);
+            Crew crew = inputCrewNameAndGetCrew();
             LocalTime localTime = InputView.inputTime();
             return crew.registerAttendance(LocalDateTime.of(dateTime.toLocalDate(), localTime));
         });
+    }
+
+    private Crew inputCrewNameAndGetCrew() {
+        String crewName = InputView.inputName(crews::getCrewByName);
+        return crews.getCrewByName(crewName);
     }
 
     private Menu getMenu() {

@@ -4,6 +4,8 @@ package attendance.view;
 import attendance.domain.attendance.OperatingTime;
 import camp.nextstep.edu.missionutils.Console;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.function.Consumer;
 
@@ -16,6 +18,7 @@ public class InputView {
             + "Q. 종료";
     private static final String INPUT_CREW_NAME = "닉네임을 입력해 주세요.";
     private static final String INPUT_ATTENDANCE_TIME = "등교 시간을 입력해 주세요.";
+    private static final String INPUT_UPDATE_DAY = "수정할 날짜(일)를 입력하세요.";
 
     public static String inputMenu() {
         System.out.println(INPUT_MENU);
@@ -39,5 +42,14 @@ public class InputView {
         String[] hoursAndMinutes = time.split(":");
         OperatingTime.checkAvailableTime(LocalTime.of(Integer.parseInt(hoursAndMinutes[0]), Integer.parseInt(hoursAndMinutes[1])));
         return LocalTime.of(Integer.parseInt(hoursAndMinutes[0]), Integer.parseInt(hoursAndMinutes[1]));
+    }
+
+    public static LocalDate inputDate(LocalDateTime dateTime, Consumer<LocalDate> existsValidator) {
+        System.out.println(INPUT_UPDATE_DAY);
+        String day = Console.readLine();
+        InputValidator.dayValid(day);
+        LocalDate updateDay = dateTime.toLocalDate().withDayOfMonth(Integer.parseInt(day));
+        existsValidator.accept(updateDay);
+        return updateDay;
     }
 }

@@ -27,4 +27,13 @@ public class Attendance {
     public String getDailyAttendanceStatus() {
         return dailyAttendanceStatus.getName();
     }
+
+    public boolean isSameDate(LocalDate date) {
+        return this.date.equals(date);
+    }
+
+    public void updateTime(LocalTime time) {
+        this.time = time;
+        this.dailyAttendanceStatus = DailyAttendanceStatus.of(date, time);
+    }
 }
