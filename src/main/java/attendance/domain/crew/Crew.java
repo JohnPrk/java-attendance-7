@@ -1,6 +1,7 @@
 package attendance.domain.crew;
 
 import attendance.domain.attendance.Attendance;
+import attendance.domain.attendance.AttendanceHistory;
 import attendance.domain.attendance.Attendances;
 
 import java.time.LocalDate;
@@ -17,6 +18,10 @@ public class Crew {
         this.attendances = new Attendances();
     }
 
+    public String getName() {
+        return name;
+    }
+
     public Attendance registerAttendance(LocalDateTime dateTime) {
         return attendances.addAttendance(dateTime);
     }
@@ -31,5 +36,9 @@ public class Crew {
 
     public void updateAttendance(LocalDate date, LocalTime time) {
         attendances.updateAttendance(date, time);
+    }
+
+    public AttendanceHistory getAttendanceHistory(LocalDate date) {
+        return attendances.getAttendanceHistory(date);
     }
 }

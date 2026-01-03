@@ -15,8 +15,8 @@ public enum DayOfTheWeek {
     SATURDAY(DayOfWeek.SATURDAY, "토요일"),
     SUNDAY(DayOfWeek.SUNDAY, "일요일");
 
-    private static final String NOT_ATTENDANCE_DAY = "%02d월 %02d일 %s은 등교일이 아닙니다.";
-    private static final String NOT_EXISTS_DAY_OF_WEEK = "존재하지 않는 요일입니다.";
+    private static final String NOT_ATTENDANCE_DAY = "[ERROR] %02d월 %02d일 %s은 등교일이 아닙니다.";
+    private static final String NOT_EXISTS_DAY_OF_WEEK = "[ERROR] 존재하지 않는 요일입니다.";
 
     private final DayOfWeek dayOfWeek;
     private final String koreanName;
@@ -39,7 +39,7 @@ public enum DayOfTheWeek {
         }
     }
 
-    private static boolean isWeekend(LocalDate date) {
+    public static boolean isWeekend(LocalDate date) {
         DayOfWeek dayOfWeek = date.getDayOfWeek();
         return of(dayOfWeek).equals(SATURDAY) || of(dayOfWeek).equals(SUNDAY);
     }

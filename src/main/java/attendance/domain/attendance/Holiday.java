@@ -11,7 +11,7 @@ public enum Holiday {
 
     CHRISTMAS(LocalDate.of(2024, 12, 25));
 
-    private static final String NOT_ATTENDANCE_DAY = "%02d월 %02d일 %s은 등교일이 아닙니다.";
+    private static final String NOT_ATTENDANCE_DAY = "[ERROR] %02d월 %02d일 %s은 등교일이 아닙니다.";
 
     private final LocalDate date;
 
@@ -26,7 +26,7 @@ public enum Holiday {
         }
     }
 
-    private static boolean isHoliday(LocalDate date) {
+    public static boolean isHoliday(LocalDate date) {
         return Arrays.stream(Holiday.values())
                 .anyMatch(h -> h.date.equals(date));
     }

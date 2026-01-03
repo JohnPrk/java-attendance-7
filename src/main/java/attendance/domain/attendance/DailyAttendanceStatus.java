@@ -32,4 +32,16 @@ public enum DailyAttendanceStatus {
     public String getName() {
         return name;
     }
+
+    public boolean isAttendance() {
+        return this.equals(ATTENDANCE);
+    }
+
+    public boolean isLate() {
+        return this.equals(LATE);
+    }
+
+    public boolean isAbsence() {
+        return this.equals(ABSENCE);
+    }
 }

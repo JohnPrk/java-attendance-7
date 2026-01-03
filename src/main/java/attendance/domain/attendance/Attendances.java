@@ -9,6 +9,7 @@ import java.util.List;
 public class Attendances {
 
     private static final String NOT_EXISTS_ATTENDANCE_LIST = "출석된 기록이 존재하지 않습니다.";
+
     private final List<Attendance> attendances;
 
     public Attendances() {
@@ -30,5 +31,9 @@ public class Attendances {
 
     public void updateAttendance(LocalDate date, LocalTime time) {
         getAttendanceByDate(date).updateTime(time);
+    }
+
+    public AttendanceHistory getAttendanceHistory(LocalDate date) {
+        return new AttendanceHistory(date, attendances);
     }
 }

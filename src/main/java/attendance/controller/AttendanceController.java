@@ -1,6 +1,7 @@
 package attendance.controller;
 
 import attendance.domain.attendance.Attendance;
+import attendance.domain.attendance.AttendanceHistory;
 import attendance.domain.attendance.DayOfTheWeek;
 import attendance.domain.attendance.Holiday;
 import attendance.domain.crew.Crew;
@@ -54,7 +55,9 @@ public class AttendanceController {
 
     private void getAttendanceHistory() {
         System.out.println("<출석 기록 조회>");
-
+        Crew crew = inputCrewNameAndGetCrew();
+        AttendanceHistory attendanceHistory = crew.getAttendanceHistory(dateTime.toLocalDate().minusDays(1));
+        OutputView.printAttendanceHistory(crew.getName(), dateTime.toLocalDate(), attendanceHistory);
     }
 
     private void updateAttendance() {
