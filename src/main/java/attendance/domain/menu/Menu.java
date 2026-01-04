@@ -8,7 +8,7 @@ public enum Menu {
     REGISTER_ATTENDANCE("1"),
     UPDATE_ATTENDANCE("2"),
     GET_ATTENDANCE_HISTORY("3"),
-    GET_DROPOUT_RISK_MEMBERS("4"),
+    GET_ACADEMIC_WARNING_CREWS("4"),
     QUIT("Q");
 
     private final String symbol;

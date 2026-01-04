@@ -1,9 +1,6 @@
 package attendance.controller;
 
-import attendance.domain.attendance.Attendance;
-import attendance.domain.attendance.AttendanceHistory;
-import attendance.domain.attendance.DayOfTheWeek;
-import attendance.domain.attendance.Holiday;
+import attendance.domain.attendance.*;
 import attendance.domain.crew.Crew;
 import attendance.domain.crew.Crews;
 import attendance.domain.menu.Menu;
@@ -14,6 +11,7 @@ import attendance.view.OutputView;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 public class AttendanceController {
 
@@ -45,12 +43,14 @@ public class AttendanceController {
             case REGISTER_ATTENDANCE -> registerAttendance();
             case UPDATE_ATTENDANCE -> updateAttendance();
             case GET_ATTENDANCE_HISTORY -> getAttendanceHistory();
-            case GET_DROPOUT_RISK_MEMBERS -> getDropoutRiskMembers();
+            case GET_ACADEMIC_WARNING_CREWS -> getAcademicWarningCrews();
         }
     }
 
-    private void getDropoutRiskMembers() {
+    private void getAcademicWarningCrews() {
         System.out.println("<제적 위험자 조회>");
+        List<AcademicWarningCrew> academicWarningCrews = crews.getAcademicWarningCrews(dateTime.toLocalDate());
+        OutputView.printAcademicWarningCrews(academicWarningCrews);
     }
 
     private void getAttendanceHistory() {

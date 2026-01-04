@@ -1,5 +1,6 @@
 package attendance.domain.crew;
 
+import attendance.domain.attendance.AcademicWarningCrew;
 import attendance.domain.attendance.Attendance;
 import attendance.domain.attendance.AttendanceHistory;
 import attendance.domain.attendance.Attendances;
@@ -40,5 +41,13 @@ public class Crew {
 
     public AttendanceHistory getAttendanceHistory(LocalDate date) {
         return attendances.getAttendanceHistory(date);
+    }
+
+    public AcademicWarningCrew getAcademicWarningCrew(LocalDate date) {
+        AttendanceHistory attendanceHistory = attendances.getAttendanceHistory(date);
+        if (!attendanceHistory.hasNoWarning()) {
+            return new AcademicWarningCrew(name, attendanceHistory.getLateCount(), attendanceHistory.getAbsenceCount(), attendanceHistory.getAcademicWarningStatus());
+        }
+        return null;
     }
 }

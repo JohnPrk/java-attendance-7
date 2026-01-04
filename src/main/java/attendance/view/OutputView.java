@@ -1,5 +1,6 @@
 package attendance.view;
 
+import attendance.domain.attendance.AcademicWarningCrew;
 import attendance.domain.attendance.Attendance;
 import attendance.domain.attendance.AttendanceHistory;
 import attendance.domain.attendance.DayOfTheWeek;
@@ -17,6 +18,7 @@ public class OutputView {
     private static final String ATTENDANCE_WITH_NULL = "%02d월 %02d일 %s %s (%s)%n";
     private static final String UPDATE_ATTENDANCE_MESSAGE = "%02d월 %02d일 %s %02d:%02d (%s) -> %02d:%02d (%s) 수정 완료!%n";
     private static final String ATTENDANCE_HISTORY_MESSAGE = "%02d월 %s님의 출석 현황입니다.%n";
+    private static final String ACADEMIC_WARNING_CREW = "%s: 결석 %d회 지각 %d회 (%s)%n";
 
 
     public static void printWelcomeMessage(LocalDateTime date) {
@@ -76,5 +78,18 @@ public class OutputView {
         }
         System.out.printf("%s 대상자%n", attendanceHistory.getAcademicWarningStatus());
         System.out.println();
+    }
+
+    public static void printAcademicWarningCrews(List<AcademicWarningCrew> academicWarningCrews) {
+        System.out.println("제적 위험자 조회 결과");
+        academicWarningCrews
+                .forEach(academicWarningCrew -> {
+                    System.out.printf(
+                            String.format(ACADEMIC_WARNING_CREW,
+                                    academicWarningCrew.getCrewName(),
+                                    academicWarningCrew.getLateCount(),
+                                    academicWarningCrew.getAbsenceCount(),
+                                    academicWarningCrew.getAcademicWarningStatus()));
+                });
     }
 }
